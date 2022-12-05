@@ -48,22 +48,13 @@
       "duztarih": "1670236270925"
     },
     {
-      "id": 2,
-      "adsoyad": "veli",
-      "mail": "veli@mail.com",
-      "parola": "123",
+      "id": 4,
+      "adsoyad": "user",
+      "mail": "user",
+      "parola": "1",
       "admin": "0",
-      "kaytarih": "1668070283323",
-      "duztarih": "1670236270925"
-    },
-    {
-      "id": 3,
-      "adsoyad": "Merhaba",
-      "mail": "merhaba@mail.com",
-      "parola": "123",
-      "admin": "0",
-      "kaytarih": "1670179505502",
-      "duztarih": "1670235671802"
+      "kaytarih": "1670249655175",
+      "duztarih": "1670249655175"
     }
   ],
   "products": [
@@ -88,10 +79,6 @@
     },
     {
       "id": 3,
-      "ProductIMG1": "https://i.pinimg.com/originals/e7/09/58/e7095844345155134dc5e1583b1a8df2.jpg",
-      "ProductIMG2": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
-      "ProductIMG3": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
-      "ProductIMG4": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
       "ProductName": "Şarampol Tarafı Ev",
       "ProductDescription": "4+2, 500m2",
       "ProductAdress": "Deneme Mahallesi, 500 sokak",
@@ -100,10 +87,14 @@
       "ProductSellerCellPhone": "051112224433",
       "ProductPrice": "80.000",
       "regDate": "1670177331191",
-      "editDate": "1670243778324",
-      "IsActive": "yes",
+      "editDate": "1670251384530",
+      "IsActive": "no",
       "DiscountPrice": null,
-      "IsDiscount": "no"
+      "IsDiscount": "no",
+      "ProductIMG1": "https://i.pinimg.com/originals/e7/09/58/e7095844345155134dc5e1583b1a8df2.jpg",
+      "ProductIMG2": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG3": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductIMG4": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg"
     },
     {
       "id": 4,

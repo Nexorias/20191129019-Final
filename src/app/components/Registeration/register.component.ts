@@ -5,6 +5,7 @@ import { DataService } from '../../services/data.service';
 import { MytoastService } from '../../services/mytoast.service';
 import { Uye } from '../../models/Uye';
 import { Component, OnInit } from '@angular/core';
+import { Toast } from 'bootstrap';
 
 @Component({
   selector: 'app-register',
@@ -12,17 +13,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  Users!: Uye[];
 
   constructor(public dataServis: DataService, public toast: MytoastService, public router: Router) { }
 
   ngOnInit() {}
+
+   ListUsers() {
+    this.dataServis.UyeListele().subscribe(d => {
+      this.Users = d;
+    });
+  }
   kayitOl(Mail:string, pass:string, passCheck:string, username:string){
     var Validity = this.CheckValidityOfForm(Mail,pass,passCheck,username);
     if (Validity == false) {return;} //Form is not filled properly
-
     if (pass == passCheck) {
     var NewUser = new Uye();
     NewUser.adsoyad = username;
+    NewUser.mail = Mail;
+    this.ListUsers();
+    var Filter = this.Users.filter(s => s.mail == NewUser.mail);
+    if (Filter.length > 0) {
+      var ToastResult = new ToastInput();
+      ToastResult.Msg = "Bu maile sahip bir kullanıcı zaten var!";
+      ToastResult.action = "warning";
+      this.toast.ToastOther(ToastResult);
+    } else {
     NewUser.admin = 0;
     var Time = Date.now();
     NewUser.duztarih = Time.toString();
@@ -37,14 +53,15 @@ export class RegisterComponent implements OnInit {
           this.toast.ToastUygula(result);
         });
     this.router.navigate(['/login'])
+      }
     } else{
     var result: Sonuc = new Sonuc();
     result.islem = false;
     result.mesaj = "Parola uyuşmuyor!";
     this.toast.ToastUygula(result);
 
-    }
 
+    }
 
   }
   returnLogin(){
