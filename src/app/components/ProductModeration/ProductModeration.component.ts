@@ -93,7 +93,7 @@ export class ProductSectionComponent implements OnInit {
         this.servis.AddProduct(CurrentProduct).subscribe(d => {
           var ToastMain = new Sonuc();
           ToastMain.islem = true;
-          ToastMain.mesaj = "Kullanıcı Eklendi";
+          ToastMain.mesaj = "İlan Eklendi";
           this.toast.ToastUygula(ToastMain);
           this.ListProducts();
           this.ProductModal.toggle();
@@ -103,7 +103,7 @@ export class ProductSectionComponent implements OnInit {
       this.servis.EditProduct(CurrentProduct).subscribe(d => {
         var ToastMain = new Sonuc();
         ToastMain.islem = true;
-        ToastMain.mesaj = "Kullanıcı Düzenlendi";
+        ToastMain.mesaj = "İlan Düzenlendi";
         this.toast.ToastUygula(ToastMain);
         this.ListProducts();
         this.ProductModal.toggle();
@@ -181,7 +181,7 @@ if (this.CheckUnathorizedAccess()==false ) {return}
 
     this.DeleteAssurance = 0
     this.UpdateCurrentProduct(ProductData)
-    this.U_ModalName = "Kullanıcı Sil";
+    this.U_ModalName = "İlan Sil";
     this.ProductModal = new bootstrap.Modal(el);
     this.ProductModal.show();
   }
