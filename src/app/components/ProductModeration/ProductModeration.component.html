@@ -1,0 +1,212 @@
+<div class="mt-4 ms-4">
+  <button class="btn btn-warning" (click)=" RouteToAdminSection()" [disabled]="servis.aktifUye.admin==0"><i
+      class="fa-solid fa-right-from-bracket"></i> Admin Paneline Geri Dön</button>
+</div>
+
+<div class="container">
+  <button class="btn btn-success mt-4 w-100" data-bs-toggle="modal" data-bs-target="#CreateEdit" [disabled]="servis.aktifUye.admin==0" (click)="AddModal(CreateEdit)">
+    <i class="fa fa-plus">
+    </i>
+  </button>
+
+  <hr>
+  <div class="row">
+
+    <div class="card mt-4 ms-4" style="width: 18rem; " *ngFor="let product of products">
+      <img [src]="product.ProductIMG1"
+      class="card-img-top" alt="...">
+
+      <div class="card-body text-center">
+        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem"
+          [hidden]="product.IsDiscount=='no'">INDIRIM VAR!</div>
+        <h5 class="card-title">{{product.ProductName}}</h5>
+        <h6 class="opacity-50">ilan Numarası: {{product.id}}</h6>
+        <i class="fa-regular fa-eye mb-2 ms-2" [hidden]="product.IsActive=='no'"></i>
+        <i class="fa-solid fa-eye-slash mb-2" [hidden]="product.IsActive=='yes'"></i>
+        <div *ngIf="product.IsDiscount=='yes';then Discount else NoDiscount"></div>
+        <ng-template [hidden]="product.IsActive=='yes'" #Discount  class="card-subtitle mb-2 text-muted" ><h6>{{this.ConvertLocationId(product.ProductLocation)}} Tarafı, <br> <s>{{product.ProductPrice}} TL <br></s> {{product.DiscountPrice}} TL </h6> </ng-template>
+        <ng-template [hidden]="product.IsActive=='no'" #NoDiscount class="card-subtitle mb-2 text-muted"><h6>{{this.ConvertLocationId(product.ProductLocation)}} Tarafı, <br> {{product.ProductPrice}} TL</h6></ng-template>
+        <ul class="card-text list-group list-group-flush">
+          <li class="list-group-item"><b>Daire Bilgi: </b>{{product.ProductDescription}}</li>
+          <li class="list-group-item"><b>Bölge: </b>{{product.ProductLocation}} </li>
+          <li class="list-group-item"><b>Satıcı: </b>{{product.ProductSellerName}}</li>
+        </ul>
+
+        <button class="btn btn-warning w-50 ml mt-2" data-bs-toggle="modal"  data-bs-target="#CreateEdit" [disabled]="servis.aktifUye.admin==0" (click)="EditModal(product,CreateEdit)">Düzenle</button>
+        <button class="btn btn-success w-25 ms-2 mt-2" data-bs-toggle="modal" data-bs-target="#EditImages"
+          [disabled]="servis.aktifUye.admin==0" (click)="ImageEditModal(product,EditImages)">
+          <i class="fa-solid fa-image"></i></button>
+        <button class="btn btn-danger w-25 ms-2 mt-2" data-bs-toggle="modal"  data-bs-target="#DeleteModal" [disabled]="servis.aktifUye.admin==0" (click)="deleteModal(product,DeleteModal)">
+          <i class="fa-solid fa-trash"></i></button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" #CreateEdit>
+  <div class="modal-dialog">
+    <form [formGroup]="ProductForm" (ngSubmit)="editProduct(false)"> <!-- düzenle ilanı-->
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">{{U_ModalName}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label>İlan Adı</label>
+            <input type="text" class="form-control" placeholder="Kepez Daire" formControlName="ProductName">
+            <label>İlan Ücreti</label>
+            <input type="text" class="form-control" placeholder="100.000 TL" formControlName="ProductPrice">
+            <div class="form-group">
+              <label for="my-select">Lokasyon</label>
+              <select id="my-select" class="form-control" formControlName="ProductLocation">
+                <option *ngFor="let location of locations" value="{{location.id}}">{{location.LocationName}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="my-select">Görünürlük</label>
+              <select id="my-select" class="form-control required" formControlName="IsActive">
+                <option value="yes">Evet</option>
+                <option value="no">Hayır</option>
+              </select>
+            </div>
+              <label>Adress</label>
+              <input type="text" class="form-control" placeholder="Deneme Mahallesi, 1000 Sokak" formControlName="ProductAdress">
+            <label>İlan Açıklaması</label>
+            <input type="text" class="form-control" placeholder="Satılık Daire, 3 + 1, 155 m2"  formControlName="ProductDescription">
+            <label>İlan Sahibi İsim</label>
+            <input type="text" class="form-control" placeholder="Ali Veli"  formControlName="ProductSellerName">
+            <label>İlan Sahibi Telefon Numarası</label>
+            <input type="text" class="form-control" placeholder="05112223344" formControlName="ProductSellerCellPhone">
+
+              <div class="form-group">
+                <label for="my-select">indirim</label>
+                <select id="my-select" class="form-control required" formControlName="IsDiscount">
+                  <option value="yes">Evet</option>
+                  <option value="no">Hayır</option>
+                </select>
+              </div>
+
+            <label>İndirim Fiyatı</label>
+            <input type="text" class="form-control" placeholder="70.000 TL" formControlName="DiscountPrice">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" value="Kaydet">Kaydet</button>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" #DeleteModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title fs-5" id="exampleModalLabel">İlan sil?</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <h6 *ngIf="ChosenProduct">Dikkat! Bu işlem <b>{{ChosenProduct.ProductName}}'i</b> silecektir ve bu işlem <b class="text-danger">geri
+          alınamaz!</b> Emin
+        misiniz? Silmek için iki kere tıklayınız.
+        </h6>
+      </div>
+      <div class="modal-footer">
+
+        <button class="btn btn-danger" *ngIf="ChosenProduct" (click)="deleteProduct()"><i class="fa fa-trash"></i></button> <!--ilanı sil -->
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" #EditImages>
+  <div class="modal-dialog">
+    <form [formGroup]="ImageForm" (ngSubmit)="editProduct(true)">
+      <!-- düzenle ilanı-->
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">{{U_ModalName}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+          <label>İlan Resim1</label>
+          <input type="text" class="form-control" placeholder="" formControlName="ProductIMG1">
+          <label>İlan Resim2</label>
+          <input type="text" class="form-control" placeholder="" formControlName="ProductIMG2">
+          <label>İlan Resim3</label>
+          <input type="text" class="form-control" placeholder="" formControlName="ProductIMG3">
+          <label>İlan Resim4</label>
+           <input type="text" class="form-control" placeholder="" formControlName="ProductIMG4">
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" value="Kaydet">Kaydet</button>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Modal
+<div class="modal fade" id="CreateEdit" tabindex="-1" aria-labelledby="CreateEdit" aria-hidden="true" #CreateEdit>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title fs-5" id="exampleModalLabel"> {{this.U_ModalName}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group mt-2">
+            <label for="ItemName"> Urun isim</label>
+            <input  [(ngModel)]="product.ProductName" type="text" id="ProductName" class="form-control" formControlName="id">
+          </div>
+          <div class="form-group  mt-2">
+            <label for="ItemIMG"> Urun Resmi</label>
+            <input [(ngModel)]="product.ProductIMG" type="text"  id="ProductIMG" class="form-control" formControlName="ProductIMG">
+          </div>
+          <div class="form-group">
+          <button class="btn btn-success w-100" (click)="AddProduct()"><i class="fa fa-plus" ></i> {{this.U_ModalName}}</button>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModal" aria-hidden="true" #DeleteModal>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title fs-5" id="exampleModalLabel">İlan sil?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group mt-2">
+        <div class="modal-footer">
+          <label> Dikkat! Bu işlem <b>{{ChosenProduct.ProductName}}'i</b> silecektir ve bu işlem <b class="text-danger">geri alınamaz!</b> Emin
+            misiniz?</label>
+            <div class="form-group">
+              <button class="btn btn-danger  mt-4"(click)="DeleteProduct()">Sil <i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+-->
+    <!--  <select class="form-control" formControlName="admin">
+                  <option value="1">Evet</option>
+                  <option value="0">Hayır</option>
+                </select>-->

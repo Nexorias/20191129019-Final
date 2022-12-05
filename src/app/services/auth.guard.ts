@@ -19,5 +19,13 @@ export class AuthGuard implements CanActivate {
     }
     return sonuc;
   }
-
+  checkAdmin() {
+    var IsAdmin = false;
+    var User = this.servis.ReturnActiveUserData();
+    console.log(User.admin)
+    if (User.admin > 0) {
+      IsAdmin = true;
+    }
+    return IsAdmin;
+  }
 }

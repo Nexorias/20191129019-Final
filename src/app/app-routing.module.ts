@@ -1,8 +1,15 @@
-import { LoginComponent } from './components/login/login.component';
-import { UyeComponent } from './components/uye/uye.component';
-import { KategoriComponent } from './components/kategori/kategori.component';
+import { DetailedProductSectionComponent } from './components/DetailedProduct/DetailedProductSection.component';
+import { ProductSectionComponent } from './components/ProductModeration/ProductModeration.component';
+import { RealEstateModerationComponent } from './components/UserModeration/RealEstateModeration.component';
+import { RealEstateSectionComponent } from './components/RealEstateSection/RealEstateSection.component';
+import { AdminPageComponent } from './components/AdminPage/AdminPage.component';
+import { UserpageComponent } from './components/UserPage/userpage.component';
+import { RegisterComponent } from './components/Registeration/register.component';
+import { BasketComponent } from './components/Basket/basket.component';
+import { LoginComponent } from './components/Login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgModule } from '@angular/core';
+//componenet end
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/auth.guard';
 
@@ -16,16 +23,43 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'kategoriler',
-    component: KategoriComponent,
+    path: 'homes',
+    component: RealEstateSectionComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'uyeler',
-    component: UyeComponent,
+    path: 'basket',
+    component: BasketComponent,
+  },
+  {
+  path: 'register',
+  component: RegisterComponent,
+  },
+   {
+    path: 'userpage',
+    component: UserpageComponent,
     canActivate: [AuthGuard]
-  }
 
+  },
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    canActivate: [AuthGuard],
+  },
+    {
+    path: 'usermoderation',
+    component: RealEstateModerationComponent,
+    canActivate: [AuthGuard]
+    },
+    {
+    path: 'products',
+    component: ProductSectionComponent,
+    canActivate: [AuthGuard]
+    },
+    {
+      path: 'Details/:id',
+    component: DetailedProductSectionComponent,
+    }
 ];
 
 @NgModule({

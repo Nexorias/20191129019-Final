@@ -1,0 +1,19 @@
+<body>
+  <h4 class="mt-3 ms-5 text-secondary">Merhaba, <b>{{UserDisplayName}}</b>
+  <button [hidden]="AdminBool==false" type="button"class="btn btn-success mt-1 ms-3" (click)="redirectToAdminPage()">Admin
+    Panel</button>
+  </h4>
+  <div class="ps-5">
+ <h5 class="text-success"> Hesap Bilgileri; </h5>
+ <h6 >E-Mail = {{Mail}}</h6>
+ <h6>Kayıt Tarihi = {{RegisterDate}}</h6>
+ <div>
+  <button type="button" class="btn btn-outline-danger mt-1" (click)="UserLogoff()">Çıkış
+    Yap</button>
+ </div>
+
+</div>
+
+</body>
+
+

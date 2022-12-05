@@ -1,0 +1,181 @@
+<div class="mt-4 ms-4">
+  <h1></h1>
+  <button class="btn btn-success ms-2" (click)=" RouteToProducts()" [disabled]="servis.aktifUye.admin==0"><i class="fa-solid fa-store"></i> İlanları Düzenle</button>
+  <button class="btn btn-success ms-2" (click)=" RouteToHomeSection()" [disabled]="servis.aktifUye.admin==0"><i class="fa-solid fa-users"></i> Kullanıcıları Düzenle
+  </button>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h3>Bölgeler</h3>
+      <button class="btn btn-outline-success" (click)="Add(modalEkleDuzenle)"
+        [disabled]="servis.aktifUye.admin==0"><i class="fa fa-plus"></i> Bölge Ekle</button>
+      <table class="table table-hover mt-3">
+        <thead>
+          <th>Id</th>
+          <th>Bölge Adı</th>
+          <th>Kayıt Tarihi</th>
+          <th>Düzenleme Tarihi</th>
+          <th>Düzenle</th>
+          <th>Sil</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Loc of Locations">
+            <td>{{Loc.id}}</td>
+            <td>{{Loc.LocationName}}</td>
+            <td>{{Loc.RegDate | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>{{Loc.EditDate | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td><button class="btn btn-outline-warning" (click)="Edit(Loc,modalEkleDuzenle)"
+                [disabled]="servis.aktifUye.admin==0">Düzenle</button></td>
+            <td><button class="btn btn-outline-danger" (click)="Delete(Loc,modalSil)"
+                [disabled]="servis.aktifUye.admin==0">Sil</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal" tabindex="-1" #modalEkleDuzenle>
+      <div class="modal-dialog">
+        <form [formGroup]="LocationForm" (ngSubmit)="AdjustLocation()">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title">{{modalBaslik}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label>Bölge ismi</label>
+                <input type="text" class="form-control" formControlName="LocationName">
+                <input type="hidden" class="form-control" formControlName="id">
+                <input type="hidden" class="form-control" formControlName="RegDate">
+                <input type="hidden" class="form-control" formControlName="EditDate">
+
+              </div>
+
+            </div>
+            <div class="modal-footer">
+
+              <input type="submit" class="btn btn-outline-primary" value="Kaydet">
+              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" #modalSil>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">{{modalBaslik}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h6 *ngIf="ChosenLocation">{{ChosenLocation.LocationName}} adlı bölge Silinecektir Onaylıyor musunuz?</h6>
+          </div>
+          <div class="modal-footer">
+
+            <button class="btn btn-outline-danger" *ngIf="ChosenLocation" (click)="DeleteLocation()">Sil</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kapat</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+        <!-- Kategoriler kısmı yukarda aşşağısı üyeler için.-->
+
+
+   <!-- <div class="col">
+        <h3>Üyeler</h3>
+        <button class="btn btn-outline-success" (click)="AddUserModal(UserModalAdjust)" [disabled]="servis.aktifUye.admin==0"><i class="fa fa-plus"></i> Uye Ekle</button>
+        <table class="table table-hover mt-3">
+          <thead>
+            <th>Id</th>
+            <th>Kullanıcı İsmi</th>
+            <th>E-Mail</th>
+            <th>Admin</th>
+            <th>O. Tarihi</th>
+            <th>Düz. Tarihi</th>
+            <th>Düzenle</th>
+            <th>Sil</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let User of Users">
+              <td>{{User.id}}</td>
+              <td>{{User.adsoyad}}</td>
+              <td>{{User.mail}}</td>
+              <td>{{User.admin}}</td>
+              <td>{{User.kaytarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+              <td>{{User.duztarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+              <td><button class="btn btn-outline-warning" (click)="EditUserModal(User,UserModalAdjust)"
+                  [disabled]="servis.aktifUye.admin==0">Düzenle</button></td>
+              <td><button class="btn btn-outline-danger" (click)="DeleteUserModal(User,UserModalDelete)"
+                  [disabled]="servis.aktifUye.admin==0">Sil</button></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" #UserModalAdjust>
+    <div class="modal-dialog">
+      <form [formGroup]="U_Form" (ngSubmit)="AdjustUsers()">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">{{U_ModalName}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label>Kullanıcı Adı</label>
+              <input type="text" class="form-control" formControlName="adsoyad">
+              <input type="hidden" class="form-control" formControlName="id">
+              <label>Kullanıcı admin</label>
+              <input type="text" class="form-control" formControlName="admin">
+              <label>Kullanıcı Mail</label>
+              <input type="text" class="form-control" formControlName="mail">
+              <label>Kullanıcı Parola</label>
+              <input type="text" class="form-control" formControlName="parola">
+              <input type="hidden" class="form-control" formControlName="kaytarih">
+              <input type="hidden" class="form-control" formControlName="duztarih">
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+
+            <input type="submit" class="btn btn-outline-primary" value="Kaydet">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Kapat</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" #UserModalDelete>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">{{modalBaslik}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h6 *ngIf="ChosenUser">{{ChosenUser.adsoyad}} Adlı Kullanıcı silinecektir, bu işlem geri alınamaz. Emin misiniz?
+          </h6>
+        </div>
+        <div class="modal-footer">
+
+          <button class="btn btn-outline-danger" *ngIf="ChosenUser" (click)="DeleteUser()">Sil</button>
+          <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Kapat</button>
+        </div>
+      </div>
+
+    </div>-->
+  </div>
+</div>
+
+
+
+

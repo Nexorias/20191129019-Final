@@ -1,30 +1,255 @@
 {
   "categories": [
     {
-      "id": 1,
-      "adi": "Test",
-      "kaytarih": "1668069636299",
-      "duztarih": "1668069636299"
+      "id": 3,
+      "adi": "zaa",
+      "kaytarih": "1669816105586",
+      "duztarih": "1669816105586"
+    },
+    {
+      "id": 4,
+      "adi": "123",
+      "kaytarih": "1669893321424",
+      "duztarih": "1669893321424"
+    },
+    {
+      "id": 5,
+      "adi": "5",
+      "kaytarih": "1669898435135",
+      "duztarih": "1669898435135"
+    },
+    {
+      "id": 6,
+      "adi": "6",
+      "kaytarih": "1669898437671",
+      "duztarih": "1669898437671"
+    },
+    {
+      "id": 7,
+      "adi": "7",
+      "kaytarih": "1669898439176",
+      "duztarih": "1669898439176"
+    },
+    {
+      "id": 8,
+      "adi": "zzzz",
+      "kaytarih": "1670165207747",
+      "duztarih": "1670165210490"
     }
   ],
   "users": [
     {
       "id": 1,
-      "adsoyad": "Ali",
-      "mail": "ali@mail.com",
+      "adsoyad": "admin",
+      "mail": "admin",
+      "parola": "1",
       "admin": "1",
-      "parola": "123",
-      "kaytarih": "1668070115626",
-      "duztarih": "1668085146787"
+      "kaytarih": "1668070283323",
+      "duztarih": "1670236270925"
     },
     {
       "id": 2,
       "adsoyad": "veli",
       "mail": "veli@mail.com",
-      "admin": "0",
       "parola": "123",
+      "admin": "0",
       "kaytarih": "1668070283323",
-      "duztarih": "1668085150210"
+      "duztarih": "1670236270925"
+    },
+    {
+      "id": 3,
+      "adsoyad": "Merhaba",
+      "mail": "merhaba@mail.com",
+      "parola": "123",
+      "admin": "0",
+      "kaytarih": "1670179505502",
+      "duztarih": "1670235671802"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "ProductIMG1": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG2": "https://i.pinimg.com/originals/e7/09/58/e7095844345155134dc5e1583b1a8df2.jpg",
+      "ProductIMG3": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductIMG4": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
+      "ProductName": "Kepez Daire Hastane Yakını",
+      "ProductDescription": "Satılık Daire, 2+1 ",
+      "ProductAdress": "Deneme Mahallesi, 1000 sokak",
+      "ProductLocation": "7",
+      "ProductSellerName": "Ali Mehmet",
+      "ProductSellerCellPhone": "5112223344",
+      "ProductPrice": "100.000",
+      "regDate": "1670172133572",
+      "editDate": "1670243757425",
+      "IsActive": "yes",
+      "DiscountPrice": "70.000",
+      "IsDiscount": "yes"
+    },
+    {
+      "id": 3,
+      "ProductIMG1": "https://i.pinimg.com/originals/e7/09/58/e7095844345155134dc5e1583b1a8df2.jpg",
+      "ProductIMG2": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG3": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductIMG4": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
+      "ProductName": "Şarampol Tarafı Ev",
+      "ProductDescription": "4+2, 500m2",
+      "ProductAdress": "Deneme Mahallesi, 500 sokak",
+      "ProductLocation": "5",
+      "ProductSellerName": "Selim Suhan",
+      "ProductSellerCellPhone": "051112224433",
+      "ProductPrice": "80.000",
+      "regDate": "1670177331191",
+      "editDate": "1670243778324",
+      "IsActive": "yes",
+      "DiscountPrice": null,
+      "IsDiscount": "no"
+    },
+    {
+      "id": 4,
+      "ProductIMG1": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductIMG2": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG3": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductIMG4": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
+      "ProductName": "Lara Tarafı Ev",
+      "ProductDescription": "1+1, 150 m2",
+      "ProductAdress": "Deneme Mahallesi, 2000 sokak",
+      "ProductLocation": "2",
+      "ProductSellerName": "Mehmet Murat",
+      "ProductSellerCellPhone": "051112225522",
+      "ProductPrice": "30.000",
+      "regDate": "1670177417961",
+      "editDate": "1670243800236",
+      "IsActive": "yes",
+      "DiscountPrice": "15.000",
+      "IsDiscount": "yes"
+    },
+    {
+      "id": 5,
+      "ProductName": "Muratpaşa Tarafı Ev",
+      "ProductIMG1": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
+      "ProductIMG2": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG3": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG4": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductDescription": "Satılık Ahşap Ev, 3+1 250 m2 ",
+      "ProductAdress": "Deneme Mahallesi, 1000 Sok",
+      "ProductLocation": "2",
+      "ProductSellerName": "Mehmet Ziya",
+      "ProductSellerCellPhone": "05112223344",
+      "ProductPrice": "70.000",
+      "regDate": "1670237916612",
+      "editDate": "1670237916612",
+      "IsActive": "yes",
+      "DiscountPrice": "",
+      "IsDiscount": "no"
+    },
+    {
+      "id": 6,
+      "ProductIMG1": "https://www.manzara.gen.tr/w1/Ev-Foto%C4%9Fraflar%C4%B1-53.jpg",
+      "ProductIMG2": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductIMG3": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG4": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
+      "ProductName": "Sanayi Ev",
+      "ProductDescription": "Satılık Ev, 3+3 150m2",
+      "ProductAdress": "Deneme Mahallesi, 1455 Sok",
+      "ProductLocation": "4",
+      "ProductSellerName": "Işık Mari",
+      "ProductSellerCellPhone": "05112223344",
+      "ProductPrice": "120.000",
+      "regDate": "1670238096484",
+      "editDate": "1670243880083",
+      "IsActive": "yes",
+      "DiscountPrice": "100.000",
+      "IsDiscount": "yes"
+    },
+    {
+      "id": 7,
+      "ProductIMG1": "https://as2.ftcdn.net/v2/jpg/04/09/34/79/1000_F_409347931_6VAMO0egSB4jgrS41rtrI64JCrUj4d60.jpg",
+      "ProductIMG2": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG3": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
+      "ProductIMG4": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductName": "Şarampol Daire",
+      "ProductDescription": "Satılık Daire, 2+1 122m2",
+      "ProductAdress": "Deneme Mahallesi, 1222 sok",
+      "ProductLocation": "5",
+      "ProductSellerName": "Salih Karaca",
+      "ProductSellerCellPhone": "05112223344",
+      "ProductPrice": "60.000",
+      "regDate": "1670238177577",
+      "editDate": "1670243844166",
+      "IsActive": "yes",
+      "DiscountPrice": null,
+      "IsDiscount": "no"
+    },
+    {
+      "id": 8,
+      "ProductIMG1": "https://www.hekimyapi.com/img/2015/08/apartman-ordu-01.jpg",
+      "ProductIMG2": "https://cdn03.ciceksepeti.com/cicek/kc7183002-1/XL/-mandu--ahsap-ev--ahsap-bungalov--77m2-kc7183002-1-9570a4476f8e4875ad7d7fdda30b8415.jpg",
+      "ProductIMG3": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductIMG4": "https://www.manzara.gen.tr/w1/Ev-Foto%C4%9Fraflar%C4%B1-53.jpg",
+      "ProductName": "Merkez Tarafı Daire Mark Ant Yakını",
+      "ProductDescription": "Satılık Daire, 3+1 150m2",
+      "ProductAdress": "Deneme Mahallesi, 502 sok",
+      "ProductLocation": "3",
+      "ProductSellerName": "Kerem ",
+      "ProductSellerCellPhone": "05112223344",
+      "ProductPrice": "1.000.000",
+      "regDate": "1670238273008",
+      "editDate": "1670243911585",
+      "IsActive": "yes",
+      "DiscountPrice": "900.000",
+      "IsDiscount": "yes"
+    },
+    {
+      "id": 9,
+      "ProductIMG1": "https://www.seyirkafe.com/wp-content/uploads/2017/02/0ed44b46ad8ba4e3ef2189e1d5094393.jpg",
+      "ProductIMG2": "https://www.manzara.gen.tr/w1/Ev-Foto%C4%9Fraflar%C4%B1-53.jpg",
+      "ProductIMG3": "https://www.dekorsaati.com/wp-content/uploads/2014/05/en-guzel-havuzlu-ev-fotograflari.jpg",
+      "ProductIMG4": "https://i.pinimg.com/originals/21/04/22/2104228fdcf2a42fdf6ee580994379cf.jpg",
+      "ProductName": "Sanayi Tarafı Daire ",
+      "ProductDescription": "",
+      "ProductAdress": null,
+      "ProductLocation": "5",
+      "ProductSellerName": "Karamurat",
+      "ProductSellerCellPhone": "05112223344",
+      "ProductPrice": "200.000",
+      "regDate": "1670243673728",
+      "editDate": "1670243926337",
+      "IsActive": "yes",
+      "DiscountPrice": null,
+      "IsDiscount": "no"
+    }
+  ],
+  "locations": [
+    {
+      "id": 2,
+      "LocationName": "Muratpaşa",
+      "RegDate": "1670166263243",
+      "EditDate": "1670166263243"
+    },
+    {
+      "id": 3,
+      "LocationName": "Merkez",
+      "RegDate": "1670177126786",
+      "EditDate": "1670177126786"
+    },
+    {
+      "id": 4,
+      "LocationName": "Sanayi",
+      "RegDate": "1670177131034",
+      "EditDate": "1670177131034"
+    },
+    {
+      "id": 5,
+      "LocationName": "Şarampol",
+      "RegDate": "1670177138885",
+      "EditDate": "1670177138885"
+    },
+    {
+      "id": 7,
+      "LocationName": "Kepez",
+      "RegDate": "1670179606933",
+      "EditDate": "1670179606933"
     }
   ]
 }

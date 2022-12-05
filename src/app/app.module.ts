@@ -1,9 +1,13 @@
-import { LoginComponent } from './components/login/login.component';
+import { DetailedProductSectionComponent } from './components/DetailedProduct/DetailedProductSection.component';
+import { ProductSectionComponent } from './components/ProductModeration/ProductModeration.component';
+import { RealEstateModerationComponent } from './components/UserModeration/RealEstateModeration.component';
+import { RealEstateSectionComponent } from './components/RealEstateSection/RealEstateSection.component';
+import { RegisterComponent } from './components/Registeration/register.component';
+import { AdminPageComponent } from './components/AdminPage/AdminPage.component';
+import { LoginComponent } from './components/Login/login.component';
 import { AuthGuard } from './services/auth.guard';
 import { MytoastService } from './services/mytoast.service';
 import { DataService } from 'src/app/services/data.service';
-import { UyeComponent } from './components/uye/uye.component';
-import { KategoriComponent } from './components/kategori/kategori.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,16 +17,22 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    KategoriComponent,
-    UyeComponent,
-    LoginComponent
+    RealEstateSectionComponent,
+    LoginComponent,
+    RegisterComponent,
+    AdminPageComponent,
+    RealEstateModerationComponent,
+    ProductSectionComponent,
+    DetailedProductSectionComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

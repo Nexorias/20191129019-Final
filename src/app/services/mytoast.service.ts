@@ -1,3 +1,4 @@
+import { ToastInput } from './../models/ToastInput';
 import { HotToastModule, HotToastService } from '@ngneat/hot-toast';
 import { Sonuc } from '../models/Sonuc';
 import { Injectable } from '@angular/core';
@@ -30,5 +31,27 @@ export class MytoastService {
         }
       });
     }
+  }
+  ToastOther(Result: ToastInput){
+
+    switch(Result.action){
+      case "info":
+        this.toast.info(Result.Msg, {
+        style: {
+          border: '1px solid #74A5F2',
+          padding: '16px',
+          color: '#74A5F2',
+        }});
+      break
+      case "warning":
+        this.toast.warning(Result.Msg, {
+        style: {
+          border: '1px solid #B58C05',
+          padding: '16px',
+          color: '#B58C05',
+        }});
+    }
+
+
   }
 }

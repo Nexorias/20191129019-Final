@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h4>Üye Kayıt Ekranı</h4>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>E-Posta</label>
+            <input type="email" class="form-control"  #mail>
+          </div>
+          <div class="form-group">
+            <label>Kullanıcı İsim</label>
+            <input type="text" class="form-control" #username>
+          </div>
+          <div class="form-group">
+            <label>Parola</label>
+            <input type="password" class="form-control" #pass>
+          </div>
+          <div class="form-group">
+            <label>Tekrar Parola</label>
+            <input type="password" class="form-control" #passCheck>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="btn ms-2 btn-secondary" (click)="kayitOl(mail.value,pass.value,passCheck.value,username.value)">Üye Ol</a>
+          <a  class="btn btn-sm  ms-2 btn-outline-secondary" (click)="returnLogin()">Giriş Yap</a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

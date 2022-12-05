@@ -1,0 +1,31 @@
+.basket-icon i {
+  transition: 0.4s all;
+}
+
+.basket-icon {
+
+  height: 70px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 27px;
+  margin-right: 10px;
+  cursor: pointer;
+
+}
+
+.basket-icon:hover i {
+
+  transform: scale(1.15);
+
+}
+
+.navbar-nav>li:hover {
+  border-bottom: 1px solid #fff
+}
+
+.navbar-nav>li>a {
+  color: #fff
+}
