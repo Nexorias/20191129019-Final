@@ -13,6 +13,7 @@ import { Component, LOCALE_ID, OnInit } from '@angular/core';
 export class RealEstateSectionComponent implements OnInit {
   product: ProductModel = new ProductModel();
   products : ProductModel[]= [];
+  popularProducts : ProductModel[]= [];
     locations: LocationsModal[]=[];
   NoImage : boolean = false;
 
@@ -33,6 +34,7 @@ export class RealEstateSectionComponent implements OnInit {
         d[i].ProductIMG1 = this.FixArrayNoImage(d[i].ProductIMG1)
       }
       this.products = d;
+      this.popularProducts =  d.sort((a, b) => b.Clicks - a.Clicks).slice(0, 5);
     });
 }
  FixArrayNoImage(imgpath : string){
@@ -43,8 +45,10 @@ export class RealEstateSectionComponent implements OnInit {
     }
     return imgpath;
   }
-  RedirectToDetailsPage(id:number){
-    this.router.navigate(['/Details/' + id])
+  RedirectToDetailsPage(product:ProductModel){
+    product.Clicks += 1;
+    this.servis.EditProduct(product);
+    this.router.navigate(['/Details/' + product.id])
   }
    GetLocationsFromDB(){
     this.servis.ListLocations().subscribe(d=>{
@@ -52,7 +56,7 @@ export class RealEstateSectionComponent implements OnInit {
     })
   }
    ConvertLocationId(id:string){
-    var Filter = this.locations.filter(s=> s.id == parseInt(id));
+    var Filter = this.locations.filter(s=> s.id == id);
     if (Filter.length>0){
       var CurrentLocation = new LocationsModal;
       CurrentLocation = Filter[0];

@@ -21,21 +21,22 @@ export class DetailedProductSectionComponent implements OnInit {
   ngOnInit() {
     this.activatedRouter.params.subscribe(params => this.getProductDataFromId(params['id']));
     this.GetLocationsFromDB();
+    this.ProductData
+    console.log(this.ProductData.id)
+
   }
     ProductData!: ProductModel;
 
-
-  getProductDataFromId(id:number){
-    console.log(id)
+    getProductDataFromId(id:string){
     this.servis.GetProductById(id).subscribe(d => {
       this.ProductData = d;
       console.log("Product Id is: " + this.ProductData.id)
       console.log(this.ProductData.IsDiscount);
       this.CurrentIMG = this.ProductData.ProductIMG1;
-
     });
-
   }
+
+
   changeImage(IMGId:string) {
     switch(IMGId != null){
       case IMGId == '1':{
@@ -62,7 +63,7 @@ export class DetailedProductSectionComponent implements OnInit {
     })
   }
    ConvertLocationId(id:string){
-    var Filter = this.locations.filter(s=> s.id == parseInt(id));
+    var Filter = this.locations.filter(s=> s.id == id);
     if (Filter.length>0){
       var CurrentLocation = new LocationsModal;
       CurrentLocation = Filter[0];

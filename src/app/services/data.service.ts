@@ -6,143 +6,231 @@ import { Injectable } from '@angular/core';
 import { Kategori } from '../models/Kategori';
 import { HttpClient } from '@angular/common/http';
 
+
+
+import { collection, collectionData, deleteDoc, doc, docData,getFirestore , Firestore, firestoreInstance$, query, setDoc, where } from '@angular/fire/firestore';
+import { concatMap, from, map, Observable, of, switchMap, take, } from 'rxjs';
+import { addDoc, getDoc, updateDoc } from '@firebase/firestore';
+
+
+import {
+  Auth,
+  authState,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  deleteUser,
+  updateProfile,
+
+  UserInfo,
+} from '@angular/fire/auth';
+import {
+  getDownloadURL,
+  ref,
+  Storage,
+  uploadBytes,
+} from '@angular/fire/storage';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  public apiUrl = "http://localhost:3000/";
-  public aktifUye: Uye = new Uye();
+  public apiUrl = "https://emlak-portal-783c7-default-rtdb.europe-west1.firebasedatabase.app/";
+  public AuthUser = authState(this.auth);
+  public ActiveUser = new Uye();
+
   constructor(
-    public http: HttpClient
-  ) { }
+    public http: HttpClient,
+    public fs: Firestore,
+    public auth: Auth,
+    public storage: Storage,
+
+  ) {}
 
     /* Product Service  */
     GetAllProductData(){
-     return this.http.get<ProductModel[]>(this.apiUrl + "products");
+    var ref = collection(this.fs, "products");
+    return collectionData(ref, { idField: 'id' }) as Observable<ProductModel[]>;
     }
-    GetProductById(id: number){
-      return this.http.get<ProductModel>(this.apiUrl + "products/"+id);
+    GetProductById(id: string){
+         const ref = doc(this.fs, "products", id);
+        return docData(ref) as Observable<ProductModel>;
     }
+
+
+
     AddProduct(product: ProductModel){
-      return this.http.post(this.apiUrl + "products/", product);
+      var ref = collection(this.fs, 'products');
+       return addDoc(ref,product);
 
     }
     EditProduct(product: ProductModel) {
-    return this.http.put(this.apiUrl + "products/" + product.id, product);
+    var ref = doc(this.fs, "products", product.id);
+    return from(updateDoc(ref, { ...product }));
     }
 
     DeleteProduct(product: ProductModel) {
-    return this.http.delete(this.apiUrl + "products/" + product.id);
+    var ref = doc(this.fs, "products/" + product.id);
+    return deleteDoc(ref);
      }
     /* Product Service End */
     /* Locations Service Start */
     ListLocations() {
-    return this.http.get<LocationsModal[]>(this.apiUrl + "locations");
+       var ref = collection(this.fs, "locations");
+    return collectionData(ref, { idField: 'id' }) as Observable<LocationsModal[]>;
    }
-    LocationById(id: number) {
-    return this.http.get<LocationsModal>(this.apiUrl + "locations/" + id);
+    LocationById(id: string) {
+      var ref = doc(this.fs, 'locations', id);
+        return docData(ref) as Observable<LocationsModal>;
+    //return this.http.get<LocationsModal>(this.apiUrl + "locations/" + id);
   }
    AddLocation(Location: LocationsModal) {
-    return this.http.post(this.apiUrl + "locations/", Location);
+    var ref = collection(this.fs, 'locations');
+       return addDoc(ref,Location);
   }
   EditLocation(Location: LocationsModal) {
-    return this.http.put(this.apiUrl + "locations/" + Location.id, location);
+     var ref = doc(this.fs, 'locations/'+ Location.id);
+       return updateDoc(ref,{...Location});
+    //return this.http.put(this.apiUrl + "locations/" + Location.id, location);
   }
-   DeleteLocationById(id: number) {
-    return this.http.delete(this.apiUrl + "locations/" + id);
+   DeleteLocationById(id: string) {
+     var ref = doc(this.fs, "locations/" + id);
+    return deleteDoc(ref);
+    //return this.http.delete(this.apiUrl + "locations/" + id);
   }
     /* Locations Service End */
   /* kategori servis başla*/
 
 
   KategoriListele() {
-    return this.http.get<Kategori[]>(this.apiUrl + "categories");
+    //return this.http.get<Kategori[]>(this.apiUrl + "categories");
+     var ref = collection(this.fs, "categories");
+    return collectionData(ref, { idField: 'id' }) as Observable<LocationsModal[]>;
   }
-  KategoriById(id: number) {
-    return this.http.get<Kategori>(this.apiUrl + "categories/" + id);
+  KategoriById(id: string) {
+      var ref = doc(this.fs, 'categories', id);
+        return docData(ref) as Observable<Kategori>;
+
+    //return this.http.get<Kategori>(this.apiUrl + "categories/" + id);
   }
   KategoriEkle(kat: Kategori) {
-    return this.http.post(this.apiUrl + "categories/", kat);
+    var ref = collection(this.fs, 'categories');
+       return addDoc(ref,kat);
+    //return this.http.post(this.apiUrl + "categories/", kat);
   }
   KategoriDuzenle(kat: Kategori) {
-    return this.http.put(this.apiUrl + "categories/" + kat.id, kat);
+      var ref = doc(this.fs, 'categories/'+ kat.id);
+       return updateDoc(ref,{...kat});
+    //return this.http.put(this.apiUrl + "categories/" + kat.id, kat);
   }
-  KategoriSil(id: number) {
-    return this.http.delete(this.apiUrl + "categories/" + id);
+  KategoriSil(id: string) {
+     var ref = doc(this.fs, "categories/" + id);
+    return deleteDoc(ref);
+    //return this.http.delete(this.apiUrl + "categories/" + id);
   }
   /* kategori servis bitiş*/
 
   /* Uye servis başla*/
 
-  OturumAc(mail: string, parola: string) {
-    return this.http.get<Uye[]>(this.apiUrl + "users?mail=" + mail + "&parola=" + parola);
+  login(mail: string, parola: string) {
+    var curUser = this.ReturnUserData;
+
+    curUser.subscribe((user)=>{
+      console.log(user);
+      this.ActiveUser.admin = user?.admin || 0;
+      this.ActiveUser.adsoyad = user?.adsoyad || "John Doe";
+      this.ActiveUser.duztarih = user?.duztarih || "0";
+      this.ActiveUser.kaytarih = user?.kaytarih || "0";
+      this.ActiveUser.id = user?.id || "0";
+      localStorage.setItem('adsoyad', user?.adsoyad|| "");
+      localStorage.setItem('admin', user?.admin.toString()|| "0")
+    })
+
+    return  from(signInWithEmailAndPassword(this.auth, mail, parola));
+
   }
 
-  ReturnActiveUserData(){
-    return this.aktifUye;
+   OturumKontrol() {
+   var user = localStorage.getItem('adsoyad');
+   if (user && user != "") {
+    return true
+   }
+   return false
   }
 
-  OturumKontrol() {
-    if (localStorage.getItem("adsoyad")) {
-      this.AktifUyeBilgi()
-      return true;
-    } else {
-      return false;
-    }
-  }
   LogoffUser() {
-    if (localStorage.getItem("adsoyad")) {
-      localStorage.clear();
-      return true;
-    } else {
-      return false;
-    }
+    localStorage.clear();
+    from(this.auth.signOut())
+    return true;
   }
 
-  ReturnUserData(){
-    var UserData = new ReturnUserData();
-    if (localStorage.getItem("adsoyad")){
-      UserData.IsAdmin = parseInt(localStorage.getItem("admin") || "0");
-       UserData.UserName = localStorage.getItem("adsoyad") || "";
-       UserData.Mail = localStorage.getItem("mail") || "";
-       UserData.RegisterationDate = localStorage.getItem("registeration")||"";
-       return UserData;
-    } else {
-       UserData.IsAdmin = 0;
-       UserData.UserName = "John Doe";
-       UserData.Mail = "Test@mail.com";
-       UserData.RegisterationDate = "0";
-    return UserData;
-    }
+  get ReturnUserData() {
+    return this.AuthUser.pipe(
+      switchMap((user) => {
+        if (!user?.uid) {
+          return of(null);
+        }
+        const ref = doc(this.fs, 'users', user?.uid);
+        return docData(ref) as Observable<Uye>;
+      })
+    );
   }
-  AktifUyeBilgi() {
-    if (localStorage.getItem("adsoyad")) {
-      this.aktifUye.adsoyad = localStorage.getItem("adsoyad") || "";
-      var admin = localStorage.getItem("admin") || "0";
-      this.aktifUye.admin = parseInt(admin);
-    }
+
+
+
+   Register(mail: string, parola: string) {
+    return from(createUserWithEmailAndPassword(this.auth, mail, parola));
   }
-  CheckAdmin(){
-     if (this.aktifUye.admin == 1){
-      return true;
-     } else {
-      return false;
-     }
-  }
+CheckAdmin(): Observable<boolean> { //this is bane of my existence
+  return this.ReturnUserData.pipe(
+    map(user => user?.admin === 1)
+  );
+}
+
   UyeListele() {
-    return this.http.get<Uye[]>(this.apiUrl + "users");
+     var ref = collection(this.fs, "users");
+    return collectionData(ref, { idField: 'uid' }) as Observable<Uye[]>;
   }
-  UyeById(id: number) {
-    return this.http.get<Uye>(this.apiUrl + "users/" + id);
+  UyeById(id: string) {
+     var ref = doc(this.fs, 'users', id);
+        return docData(ref) as Observable<Uye>;
+   // return this.http.get<Uye>(this.apiUrl + "users/" + id);
   }
   UyeEkle(uye: Uye) {
-    return this.http.post(this.apiUrl + "users/", uye);
+   var ref = doc(this.fs, 'users', uye.id);
+    return from(setDoc(ref, uye));
   }
   UyeDuzenle(uye: Uye) {
-    return this.http.put(this.apiUrl + "users/" + uye.id, uye);
+      var ref = doc(this.fs, 'users/'+ uye.id);
+       return updateDoc(ref,{...uye});
+    //return this.http.put(this.apiUrl + "users/" + uye.id, uye);
   }
-  UyeSil(id: number) {
-    return this.http.delete(this.apiUrl + "users/" + id);
+  UyeSil(id: string) {
+      var ref = doc(this.fs, "users/" + id);
+    return deleteDoc(ref);
+    //return this.http.delete(this.apiUrl + "users/" + id);
   }
+
   /* Uye servis bitiş*/
+
+  uploadImage(image: File, path: string): Observable<string> {
+    const storageRef = ref(this.storage, path);
+    const uploadTask = from(uploadBytes(storageRef, image));
+    return uploadTask.pipe(switchMap((result) => getDownloadURL(result.ref)));
+  }
+   updateProfileData(ProfileData: Partial<UserInfo>): Observable<any> {
+    const user = this.auth.currentUser;
+    return of(user).pipe(
+      concatMap(user => {
+        if (!user) throw new Error('not authenticated');
+
+        return updateProfile(user, ProfileData);
+      })
+    )
+  }
+
+    async returnProductURL(path:string) {
+      const storageRef = ref(this.storage, path);
+      return await getDownloadURL(storageRef).then(url=>url);
+
+  }
 }

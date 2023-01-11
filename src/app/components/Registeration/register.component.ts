@@ -1,11 +1,12 @@
-import { ToastInput } from '../../models/ToastInput';
+import { ToastInput } from './../../models/ToastInput';
 import { Sonuc } from '../../models/Sonuc';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { MytoastService } from '../../services/mytoast.service';
+import { HotToastService } from '@ngneat/hot-toast';
 import { Uye } from '../../models/Uye';
 import { Component, OnInit } from '@angular/core';
-import { Toast } from 'bootstrap';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ import { Toast } from 'bootstrap';
 export class RegisterComponent implements OnInit {
   Users!: Uye[];
 
-  constructor(public dataServis: DataService, public toast: MytoastService, public router: Router) { }
+  constructor(public dataServis: DataService, public toast: MytoastService, public router: Router,   public htoast: HotToastService,) { }
 
   ngOnInit() {}
 
@@ -31,42 +32,53 @@ export class RegisterComponent implements OnInit {
     var NewUser = new Uye();
     NewUser.adsoyad = username;
     NewUser.mail = Mail;
-    this.ListUsers();
-    var Filter = this.Users.filter(s => s.mail == NewUser.mail);
-    if (Filter.length > 0) {
-      var ToastResult = new ToastInput();
-      ToastResult.Msg = "Bu maile sahip bir kullanıcı zaten var!";
-      ToastResult.action = "warning";
-      this.toast.ToastOther(ToastResult);
-    } else {
-    NewUser.admin = 0;
     var Time = Date.now();
-    NewUser.duztarih = Time.toString();
-    NewUser.kaytarih = Time.toString();
-    console.log(Time.toString());
-    NewUser.mail = Mail;
-    NewUser.parola = pass;
-    var result: Sonuc = new Sonuc();
-     this.dataServis.UyeEkle(NewUser).subscribe(d => {
-          result.islem = true;
-          result.mesaj = "Hesap Oluşturuldu! Lütfen Giriş Yapınız!";
-          this.toast.ToastUygula(result);
-        });
-    this.router.navigate(['/login'])
-      }
-    } else{
-    var result: Sonuc = new Sonuc();
-    result.islem = false;
-    result.mesaj = "Parola uyuşmuyor!";
-    this.toast.ToastUygula(result);
+     this.dataServis.
+      Register(Mail, pass)
+      .pipe(
+        switchMap(({ user: { uid } }) =>
+          this.dataServis.UyeEkle({
+            id : uid,
+            mail: Mail,
+            adsoyad: username,
+            parola: pass,
+            admin: 0,
+            kaytarih: Time.toString(),
+            duztarih: Time.toString()
 
+          })
+        ),
+         this.htoast.observe({
+        loading: 'Kayıt işlemi gerçekleştiriliyor lütfen bekleyiniz.',
+        success: (s) => "Hesap Oluşturuldu! Lütfen Giriş Yapınız!",
+        error: ({ message }) => this.returnErrorResponse(message),
+        })
 
+      )
+      .subscribe(() => {
+        this.router.navigate(['/login']);
+      });
+    } else {
+      this.toast.ToastOther({action: "warning", Msg: "Şifreler uyuşmuyor!",Loading: "..."})
     }
-
   }
+
   returnLogin(){
     this.router.navigate(['/login'])
   }
+
+  returnErrorResponse(returningError:string){
+
+    if (returningError.includes("invalid-email")){
+      return "Geçersiz E-mail."
+    } else if (returningError.includes("weak-password")){
+      return "Şifre en az 6 karakter içermelidir!"
+    } else if (returningError.includes("email-already-in-use")){
+      return "Bu e-mail zaten kullanımdadır!"
+    }
+    return "Hata: " + returningError
+  }
+
   CheckValidityOfForm(Mail:string, pass:string, passCheck:string, username:string) {
   let Items: string[] = [Mail,pass,passCheck,username]
   for (var val of Items){

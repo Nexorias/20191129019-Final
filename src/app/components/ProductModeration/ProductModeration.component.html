@@ -1,10 +1,10 @@
 <div class="mt-4 ms-4">
-  <button class="btn btn-warning" (click)=" RouteToAdminSection()" [disabled]="servis.aktifUye.admin==0"><i
+  <button class="btn btn-warning" (click)=" RouteToAdminSection()" [disabled]="!servis.CheckAdmin()"><i
       class="fa-solid fa-right-from-bracket"></i> Admin Paneline Geri Dön</button>
 </div>
 
 <div class="container">
-  <button class="btn btn-success mt-4 w-100" data-bs-toggle="modal" data-bs-target="#CreateEdit" [disabled]="servis.aktifUye.admin==0" (click)="AddModal(CreateEdit)">
+  <button class="btn btn-success mt-4 w-100" data-bs-toggle="modal" data-bs-target="#CreateEdit" [disabled]="!servis.CheckAdmin()" (click)="AddModal(CreateEdit)">
     <i class="fa fa-plus">
     </i>
   </button>
@@ -32,11 +32,15 @@
           <li class="list-group-item"><b>Satıcı: </b>{{product.ProductSellerName}}</li>
         </ul>
 
-        <button class="btn btn-warning w-50 ml mt-2" data-bs-toggle="modal"  data-bs-target="#CreateEdit" [disabled]="servis.aktifUye.admin==0" (click)="EditModal(product,CreateEdit)">Düzenle</button>
-        <button class="btn btn-success w-25 ms-2 mt-2" data-bs-toggle="modal" data-bs-target="#EditImages"
-          [disabled]="servis.aktifUye.admin==0" (click)="ImageEditModal(product,EditImages)">
-          <i class="fa-solid fa-image"></i></button>
-        <button class="btn btn-danger w-25 ms-2 mt-2" data-bs-toggle="modal"  data-bs-target="#DeleteModal" [disabled]="servis.aktifUye.admin==0" (click)="deleteModal(product,DeleteModal)">
+        <button class="btn btn-warning w-50 ml mt-2" data-bs-toggle="modal"  data-bs-target="#CreateEdit" [disabled]="!servis.CheckAdmin()" (click)="EditModal(product,CreateEdit)">Düzenle</button>
+        <button type="button" class="btn btn-success w-25 ms-2 mt-2" [disabled]="!servis.CheckAdmin()"><i
+            class="fa-solid fa-image" mat-mini-fab (click)="inputField.click()"></i>
+        </button>
+        <input #inputField type="file" hidden (change)="UploadImage($event, product) " multiple />
+        <!--<button class="btn btn-success w-25 ms-2 mt-2" data-bs-toggle="modal" data-bs-target="#EditImages"
+          [disabled]="!servis.CheckAdmin()" (click)="ImageEditModal(product,EditImages)">
+          <i class="fa-solid fa-image"></i></button> -->
+        <button class="btn btn-danger w-25 ms-2 mt-2" data-bs-toggle="modal"  data-bs-target="#DeleteModal" [disabled]="!servis.CheckAdmin()" (click)="deleteModal(product,DeleteModal)">
           <i class="fa-solid fa-trash"></i></button>
 
       </div>
@@ -138,6 +142,11 @@
         <div class="modal-body">
 
           <div class="form-group">
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Default file input example</label>
+              <input class="form-control" type="file" id="formFile">
+            </div>
+
           <label>İlan Resim1</label>
           <input type="text" class="form-control" placeholder="" formControlName="ProductIMG1">
           <label>İlan Resim2</label>

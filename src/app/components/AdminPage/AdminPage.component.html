@@ -1,7 +1,7 @@
 <div class="mt-4 ms-4">
   <h1></h1>
-  <button class="btn btn-success ms-2" (click)=" RouteToProducts()" [disabled]="servis.aktifUye.admin==0"><i class="fa-solid fa-store"></i> İlanları Düzenle</button>
-  <button class="btn btn-success ms-2" (click)=" RouteToHomeSection()" [disabled]="servis.aktifUye.admin==0"><i class="fa-solid fa-users"></i> Kullanıcıları Düzenle
+  <button class="btn btn-success ms-2" (click)=" RouteToProducts()" [disabled]="!servis.CheckAdmin()"><i class="fa-solid fa-store"></i> İlanları Düzenle</button>
+  <button class="btn btn-success ms-2" (click)=" RouteToHomeSection()" [disabled]="!servis.CheckAdmin()"><i class="fa-solid fa-users"></i> Kullanıcıları Düzenle
   </button>
 </div>
 
@@ -10,7 +10,7 @@
     <div class="col">
       <h3>Bölgeler</h3>
       <button class="btn btn-outline-success" (click)="Add(modalEkleDuzenle)"
-        [disabled]="servis.aktifUye.admin==0"><i class="fa fa-plus"></i> Bölge Ekle</button>
+        [disabled]="!servis.CheckAdmin()"><i class="fa fa-plus"></i> Bölge Ekle</button>
       <table class="table table-hover mt-3">
         <thead>
           <th>Id</th>
@@ -27,9 +27,9 @@
             <td>{{Loc.RegDate | date:'dd.MM.yyyy HH:mm:ss'}}</td>
             <td>{{Loc.EditDate | date:'dd.MM.yyyy HH:mm:ss'}}</td>
             <td><button class="btn btn-outline-warning" (click)="Edit(Loc,modalEkleDuzenle)"
-                [disabled]="servis.aktifUye.admin==0">Düzenle</button></td>
+                [disabled]="!servis.CheckAdmin()">Düzenle</button></td>
             <td><button class="btn btn-outline-danger" (click)="Delete(Loc,modalSil)"
-                [disabled]="servis.aktifUye.admin==0">Sil</button></td>
+                [disabled]="!servis.CheckAdmin()">Sil</button></td>
           </tr>
         </tbody>
       </table>

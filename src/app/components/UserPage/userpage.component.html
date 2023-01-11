@@ -1,12 +1,21 @@
 <body>
-  <h4 class="mt-3 ms-5 text-secondary">Merhaba, <b>{{UserDisplayName}}</b>
+  <h4 class="mt-3 ms-5 text-secondary text-center">Merhaba, <b>{{UserDisplayName}}</b>
   <button [hidden]="AdminBool==false" type="button"class="btn btn-success mt-1 ms-3" (click)="redirectToAdminPage()">Admin
     Panel</button>
   </h4>
-  <div class="ps-5">
- <h5 class="text-success"> Hesap Bilgileri; </h5>
- <h6 >E-Mail = {{Mail}}</h6>
- <h6>Kayıt Tarihi = {{RegisterDate}}</h6>
+  <div class="ps-5 text-center">
+ <div>
+<img class="profile-image" width="120" height="120" [src]="this.user.photoURL ?? 'assets/img/Profile-Icon.png'" />
+
+ </div>
+<button type="button" class="btn btn-success btn-circle mt-2"><i class="fa fa-pencil" mat-mini-fab (click)="inputField.click()"></i>
+</button>
+<input #inputField type = "file" hidden (change)="UploadImage($event)"/>
+<h5 class="text-success"> Hesap Bilgileri; </h5>
+
+<h6 class="mt-1" >E-Mail = {{Mail}}</h6>
+<h6>Kayıt Tarihi = {{RegisterDate}}</h6>
+
  <div>
   <button type="button" class="btn btn-outline-danger mt-1" (click)="UserLogoff()">Çıkış
     Yap</button>

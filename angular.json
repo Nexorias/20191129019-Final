@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "proje01:build:production",
+            "firebaseProject": "emlak-portal-783c7",
+            "firebaseHostingSite": "emlak-portal-783c7"
+          }
         }
       }
     }

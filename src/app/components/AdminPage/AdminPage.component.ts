@@ -69,7 +69,8 @@ export class AdminPageComponent implements OnInit {
   Edit(Loc: LocationsModal, el: HTMLElement) {
     if (this.CheckUnathorizedAccess()==false ) {return}
 
-    this.frm.patchValue(Loc);
+    this.LocationForm.patchValue(Loc);
+    console.log(Loc.id)
     this.modalBaslik = "Bölge Düzenle";
     this.modal = new bootstrap.Modal(el);
     this.modal.show();
@@ -103,43 +104,43 @@ export class AdminPageComponent implements OnInit {
       } else {
         Loc.RegDate = tarih.getTime().toString();
         Loc.EditDate = tarih.getTime().toString();
-        this.servis.AddLocation(Loc).subscribe(d => {
+
+        this.servis.AddLocation(Loc)
           this.sonuc.islem = true;
           this.sonuc.mesaj = "Bölge Eklendi";
           this.toast.ToastUygula(this.sonuc);
           this.ListLocations();
           this.modal.toggle();
-        });
+
       }
     } else {
       Loc.EditDate = tarih.getTime().toString();
-      this.servis.EditLocation(Loc).subscribe(d => {
+      this.servis.EditLocation(Loc)
         this.sonuc.islem = true;
         this.sonuc.mesaj = "Bölge Düzenlendi";
         this.toast.ToastUygula(this.sonuc);
         this.ListLocations();
         this.modal.toggle();
-      });
     }
 
   }
   DeleteLocation() {
     if (this.CheckUnathorizedAccess()==false ) {return}
 
-    this.servis.DeleteLocationById(this.ChosenLocation.id).subscribe(d => {
+    this.servis.DeleteLocationById(this.ChosenLocation.id)
       this.sonuc.islem = true;
       this.sonuc.mesaj = "Kategori Silindi";
       this.toast.ToastUygula(this.sonuc);
       this.ListLocations();
       this.modal.toggle();
-    });
+
   }
   CheckUnathorizedAccess(){ //to stop people from abusing admin commands via editing accessability by inspect element
-    if (this.servis.CheckAdmin() == false) {
-     this.router.navigate(['/'])
-     return false
+    if (this.servis.CheckAdmin()) {
+           return true
     } else {
-      return true
+      this.router.navigate(['/'])
+     return false
     }
   }
 //*locations end *//

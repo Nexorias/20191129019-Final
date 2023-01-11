@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "emlak-portal-783c7": {
+      "hosting": {
+        "proje01": [
+          "emlak-portal-783c7"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "emlak-portal-783c7"
+  }
+}

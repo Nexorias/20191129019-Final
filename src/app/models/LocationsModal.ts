@@ -1,5 +1,5 @@
 export class LocationsModal {
-  id!: number;
+  id!: string;
   LocationName!: string;
   RegDate!: string;
   EditDate!: string;

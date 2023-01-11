@@ -54,4 +54,18 @@ export class MytoastService {
 
 
   }
+
+  returnErrorResponse(returningError:string){
+
+    if (returningError.includes("invalid-email")){
+      return "Geçersiz E-mail."
+    } else if (returningError.includes("weak-password")){
+      return "Şifre en az 6 karakter içermelidir!"
+    } else if (returningError.includes("email-already-in-use")){
+      return "Bu e-mail zaten kullanımdadır!"
+    } else if (returningError.includes("wrong-password")){
+      return "Şifre Geçersizdir."
+    }
+    return "Hata: " + returningError
+  }
 }

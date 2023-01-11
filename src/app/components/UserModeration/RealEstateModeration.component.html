@@ -1,12 +1,14 @@
 <div class="mt-4 ms-4">
-  <button class="btn btn-warning" (click)=" RouteToAdminSection()" [disabled]="servis.aktifUye.admin==0"><i class="fa-solid fa-right-from-bracket"></i> Admin Paneline Geri Dön</button>
+  <button class="btn btn-warning" (click)=" RouteToAdminSection()" [disabled]="!servis.CheckAdmin()"><i class="fa-solid fa-right-from-bracket"></i> Admin Paneline Geri Dön</button>
 </div>
 <div class="container mt-5">
   <div class="row">
     <div class="col">
       <h3>Üyeler</h3>
+            <h6 class="text-black-50">DİKKAT! Üyelikler Firebase üzerinden yönetilmektedir, o yüzden sil ve üye ekle tuşlarını kullanmayınız. Düzenleme yapabilirsiniz.</h6>
+
       <button class="btn btn-outline-success" (click)="AddUserModal(UserModalAdjust)"
-        [disabled]="servis.aktifUye.admin==0"><i class="fa fa-plus"></i> Uye Ekle</button>
+        [disabled]=""><i class="fa fa-plus"></i> Uye Ekle</button>
       <table class="table table-hover mt-3">
         <thead>
           <th>Id</th>
@@ -31,9 +33,9 @@
             <td>{{User.kaytarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
             <td>{{User.duztarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
             <td><button class="btn btn-outline-warning" (click)="EditUserModal(User,UserModalAdjust)"
-                [disabled]="servis.aktifUye.admin==0">Düzenle</button></td>
+                [disabled]="!servis.CheckAdmin()">Düzenle</button></td>
             <td><button class="btn btn-outline-danger" (click)="DeleteUserModal(User,UserModalDelete)"
-                [disabled]="servis.aktifUye.admin==0">Sil</button></td>
+                [disabled]="">Sil</button></td>
           </tr>
         </tbody>
       </table>
@@ -60,10 +62,10 @@
                   <option value="1">Evet</option>
                   <option value="0">Hayır</option>
                   </select>
-                <label>Kullanıcı Mail</label>
-                <input type="text" class="form-control" formControlName="mail">
-                <label>Kullanıcı Parola</label>
-                <input type="text" class="form-control" formControlName="parola">
+               <!-- <label>Kullanıcı Mail</label>-->
+                <input type="hidden" class="form-control"  formControlName="mail">
+                <!-- <label>Kullanıcı Parola</label>-->
+                <input type="hidden" class="form-control" formControlName="parola">
                 <input type="hidden" class="form-control" formControlName="kaytarih">
                 <input type="hidden" class="form-control" formControlName="duztarih">
 

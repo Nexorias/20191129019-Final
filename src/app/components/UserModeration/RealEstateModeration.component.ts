@@ -1,3 +1,4 @@
+import { HotToastService } from '@ngneat/hot-toast';
 import { ToastInput } from '../../models/ToastInput';
 import { Sonuc } from '../../models/Sonuc';
 import { Uye } from '../../models/Uye';
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
 import { FormGroup, FormControl } from '@angular/forms';
-import { endWith } from 'rxjs';
+import { endWith, mergeMap, switchMap } from 'rxjs';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class RealEstateModerationComponent implements OnInit {
   constructor(
     public servis: DataService,
     public toast: MytoastService,
-    public router: Router
+    public router: Router,
+    public htoast: HotToastService,
 
   ) { }
 
@@ -45,6 +47,8 @@ export class RealEstateModerationComponent implements OnInit {
 RouteToAdminSection(){
 this.router.navigate(['/admin'])
 }
+
+
 RouteToHomeSection(){
     this.router.navigate(['/estatemoderation']);
   }
@@ -91,45 +95,76 @@ RouteToHomeSection(){
         this.ToastResult.Msg = "Bu Kullanıcı zaten var!";
         this.toast.ToastOther(this.ToastResult);
       } else {
-        User.kaytarih = date.getTime().toString();
-        User.duztarih = date.getTime().toString();
-        this.servis.UyeEkle(User).subscribe(d => {
-          this.sonuc.islem = true;
-          this.sonuc.mesaj = "Kullanıcı Eklendi";
-          this.toast.ToastUygula(this.sonuc);
-          this.ListUsers();
-          this.UserModal.toggle();
-        });
+         var NewUser = new Uye();
+    NewUser.adsoyad = User.adsoyad;
+    NewUser.mail = User.mail;
+    var Time = Date.now();
+     this.servis.
+      Register(User.mail, User.parola)
+      .pipe(
+        mergeMap(({ user: { uid } }) =>
+          this.servis.UyeEkle({
+            id : uid,
+            mail: User.mail,
+            adsoyad: User.adsoyad,
+            parola: User.parola,
+            admin: 0,
+            kaytarih: Time.toString(),
+            duztarih: Time.toString()
+
+          })
+        ),
+
+        this.htoast.observe({
+        loading: 'Kayıt işlemi gerçekleştiriliyor lütfen bekleyiniz.',
+        success: (s) => "Kullanıcı Eklendi",
+        error: ({ message }) => this.returnErrorResponse(message),
+        }))
+      .subscribe(() => {
+      });
       }
+
     } else {
       User.duztarih = date.getTime().toString();
-      this.servis.UyeDuzenle(User).subscribe(d => {
+      this.servis.UyeDuzenle(User)
         this.sonuc.islem = true;
         this.sonuc.mesaj = "Kullanıcı Düzenlendi";
         this.toast.ToastUygula(this.sonuc);
         this.ListUsers();
         this.UserModal.toggle();
-      });
+
     }
 
   }
   DeleteUser() {
     if (this.CheckUnathorizedAccess()==false ) {return}
-
-    this.servis.UyeSil(this.ChosenUser.id).subscribe(d => {
+    this.servis.UyeSil(this.ChosenUser.id)
       this.sonuc.islem = true;
-      this.sonuc.mesaj = "User Silindi";
+      this.sonuc.mesaj = "Kullanıcı Silindi";
       this.toast.ToastUygula(this.sonuc);
       this.ListUsers();
       this.UserModal.toggle();
-    });
+
   }
   CheckUnathorizedAccess(){
-    if (this.servis.CheckAdmin() == false) {
-     this.router.navigate(['/'])
-     return false
+    if (this.servis.CheckAdmin()) {
+         return true
+
     } else {
-      return true
+        this.router.navigate(['/'])
+     return false
     }
+  }
+
+   returnErrorResponse(returningError:string){
+
+    if (returningError.includes("invalid-email")){
+      return "Geçersiz E-mail."
+    } else if (returningError.includes("weak-password")){
+      return "Şifre en az 6 karakter içermelidir!"
+    } else if (returningError.includes("email-already-in-use")){
+      return "Bu e-mail zaten kullanımdadır!"
+    }
+    return "Hata: " + returningError
   }
 }
