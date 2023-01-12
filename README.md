@@ -1,5 +1,4 @@
-Internet programcılığı Vize Ödevi,
- Bir sebepten ötürü bootstrap sıfırdan kurulumlarda çalışmadı o yüzden UYG-9'u Branchleyip projeyi onun üzerine kurdum. 
+Internet programcılığı Final Ödevi,
 Database şablonu
 ![image](https://user-images.githubusercontent.com/65299332/211824253-4f2074d5-8b73-40be-9080-9f0e20272c84.png)
 
