@@ -7,18 +7,6 @@ Anasayfa
 
 Login Sayfası 
 ![image](https://user-images.githubusercontent.com/65299332/205658043-d965a98b-cfd7-4b53-b85a-c8bee58ab33a.png)
-AdminHesap:
-Mail: admin
-Şifre: 1
-UserHesap:
-Mail: user
-Şifre: 1
-
-Registeration Page 
-Boş bölge olamaz,
-her bölge en az 3 karakter içermelidir,
-aynı maile sahip hesaplar açılamaz,
-![image](https://user-images.githubusercontent.com/65299332/205658432-d7958cab-e127-4b9b-98e9-7f773f033e46.png)
 
 Giriş Yapıldıktan sonra 
 
